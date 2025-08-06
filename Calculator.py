@@ -1,11 +1,12 @@
 
+
 def Add(Entered_Numbers):
     Result = 0
 
     for numbers in Entered_Numbers:
         Result += numbers
-    print("==> Addition is: ", Result)
-    print()
+    
+    print("==> Addition is: ", Result, "\n")
 
 
 def Sub(Entered_Numbers):
@@ -13,8 +14,8 @@ def Sub(Entered_Numbers):
 
     for numbers in Entered_Numbers[1:]:
         Result -= numbers
-    print("==> Difference is: ", Result)
-    print()
+        
+    print("==> Difference is: ", Result, "\n")
 
 
 def Mul(Entered_Numbers):
@@ -22,8 +23,8 @@ def Mul(Entered_Numbers):
 
     for numbers in Entered_Numbers:
         Result *= numbers
-    print("==> Multiplication is: ", Result)
-    print()
+
+    print("==> Multiplication is: ", Result, "\n")
 
 
 def Div(Entered_Numbers):
@@ -32,72 +33,76 @@ def Div(Entered_Numbers):
     for numbers in Entered_Numbers[1:]:
         try:
             Result /= numbers
-        except ZeroDivisionError:    # if entered numbers has 0.
-            print("==> Cannot divide by zero. Please make sure you dont enter '0' while selecting division operation.")
-            print()
+        except ZeroDivisionError:
+            print("==> Cannot divide by zero. Please make sure you dont enter '0' while selecting division operation. \n")
             return
-    print("==> Division is: ", Result)
-    print()
+        
+    print("==> Division is: ", Result, "\n")
 
 
 
 def Calculator():
 
-    print("""   CALCULATOR APP
+    while True:
 
-        Hello Guest, Please enter numbers for calculation and select the action you want to perform:
+        print("** Welcome to CALCULATOR APP ** \n")
+        print("Hello Guest, Please enter numbers for calculation and select the action you want to perform:\n")
+        print("1. Addition")
+        print("2. Subtraction")
+        print("3. Multiplication")
+        print("4. Division")
+        print("5. Exit")
+        print()
 
-        1. Addition
-        2. Subtraction
-        3. Multiplication
-        4. Division
-        5. Exit
-
-        """)
-
-    print()    # Adding blank line.
-
-    User_Choice = int(input("Enter your choice. Please enter number mentioned against the action: "))
-
-    if User_Choice == 5:
-        print("Exiting Calculator...")
-        exit()
-
-    print()
-
-    User_Input = input("Enter more than one number separated by spaces: ").split()
-
-    print()
-
-    Entered_Numbers = []    #Creating a blank list.
-
-    for item in User_Input:
         try:
-            num = float(item)   # Converting entered numbers to float to allow decimal numbers calculations.
-            Entered_Numbers.append(num)     # Adding entered numbers in the list.
+            User_Choice = int(input("Enter your choice. Please enter number mentioned against the action: "))
         except ValueError:
-            # making sure only integers and decimal values are allowed.
-            print("==> Please revise your answer.  Enter integers or decimal numbers only.")
-            print()
-            return
+            print("\n ==> Invalid input. Please select from 1 to 5. \n")
+            continue
 
-
-    match User_Choice:
-
-        case 1:
-            Add(Entered_Numbers)
-        case 2:
-            Sub(Entered_Numbers)
-        case 3:
-            Mul(Entered_Numbers)
-        case 4:
-            Div(Entered_Numbers)
-        case 5:
+        if User_Choice == 5:
             print("Exiting Calculator...")
-            exit()
-        case _:
-            print("==> Invalid input. Please select from 1 to 5.")
+            break
+
+        print()
+
+        if User_Choice >= 1 and User_Choice <= 5:
+
+            User_Input = input("Enter more than one number separated by spaces: ").split()
+
             print()
 
-while True:  # running function till user dont exit.
-    Calculator()
+            Entered_Numbers = []
+
+            try:
+                for item in User_Input:
+                    num = float(item)
+                    Entered_Numbers.append(num) 
+            except ValueError:
+                print("==> Please revise your answer.  Enter integers or decimal numbers only. \n")
+                continue
+                
+            if len(Entered_Numbers) < 2:
+                print("==> Please enter at least two numbers.\n")
+                continue
+
+            if User_Choice == 1:
+                Add(Entered_Numbers)
+            elif User_Choice == 2:
+                Sub(Entered_Numbers)
+            elif User_Choice == 3:
+                Mul(Entered_Numbers)
+            elif User_Choice == 4:
+                Div(Entered_Numbers)
+            elif User_Choice == 5:
+                print("Exiting Calculator...")
+                break
+            else:
+                print("==> Invalid input. Please select from 1 to 5. \n")
+
+        else:
+            print("==> Invalid input. Please select from 1 to 5. \n")
+
+
+
+Calculator()
